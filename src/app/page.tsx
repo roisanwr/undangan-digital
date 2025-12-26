@@ -1,74 +1,45 @@
-'use client'
-import { useEffect, useState } from 'react'
-import { createClient } from '@/utils/supabase/client'
+import Link from 'next/link'
 
 export default function Home() {
-  const [notes, setNotes] = useState<any[]>([])
-  const [status, setStatus] = useState('Loading...')
-  const [errorDetail, setErrorDetail] = useState('')
-  
-  const supabase = createClient()
-
-  useEffect(() => {
-    const getData = async () => {
-      setStatus('Sedang menghubungi Supabase...')
-      
-      // 1. Cek Data
-      const { data, error } = await supabase.from('notes').select()
-
-      // 2. Analisa Hasil
-      if (error) {
-        setStatus('❌ ERROR TERJADI')
-        setErrorDetail(error.message)
-        console.error("Supabase Error:", error)
-      } else if (data && data.length > 0) {
-        setNotes(data)
-        setStatus('✅ SUKSES')
-      } else {
-        setStatus('⚠️ KONEKSI OK, TAPI DATA KOSONG')
-        setErrorDetail('Tabel "notes" tidak ditemukan atau isinya kosong. Cek SQL Editor di Supabase.')
-      }
-    }
-    getData()
-  }, [])
-
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-12 bg-zinc-950 text-white font-mono">
-      <h1 className="text-3xl font-bold mb-8">Debugger Koneksi</h1>
+    <main className="flex min-h-screen flex-col items-center justify-center bg-black text-white p-8 text-center">
       
-      <div className="w-full max-w-2xl p-6 border border-zinc-800 rounded-xl bg-zinc-900">
+      {/* Hero Section */}
+      <div className="max-w-2xl space-y-6">
+        <div className="inline-block px-4 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-sm text-zinc-400 mb-4">
+          ✨ Platform Undangan Digital No.1
+        </div>
         
-        {/* Status Box */}
-        <div className="mb-6 pb-6 border-b border-zinc-800">
-            <p className="text-gray-400 text-sm mb-1">STATUS SAAT INI:</p>
-            <p className={`text-xl font-bold ${
-                status.includes('SUKSES') ? 'text-green-400' : 
-                status.includes('ERROR') ? 'text-red-500' : 'text-yellow-400'
-            }`}>
-                {status}
-            </p>
-            {errorDetail && (
-                <p className="mt-2 text-red-400 bg-red-950/30 p-3 rounded border border-red-900 text-sm">
-                    Pesan Error: {errorDetail}
-                </p>
-            )}
-        </div>
+        <h1 className="text-5xl md:text-7xl font-bold tracking-tight bg-gradient-to-b from-white to-zinc-500 bg-clip-text text-transparent">
+          Buat Undangan Pernikahan Impian.
+        </h1>
+        
+        <p className="text-xl text-zinc-400">
+          Tanpa coding. Tanpa ribet. Fitur lengkap dengan manajemen tamu otomatis & RSVP real-time.
+        </p>
 
-        {/* Data Box */}
-        <div>
-            <p className="text-gray-400 text-sm mb-2">DATA DARI DATABASE:</p>
-            {notes.length === 0 ? (
-                <p className="text-zinc-600 italic">Belum ada data...</p>
-            ) : (
-                notes.map((note, i) => (
-                    <div key={i} className="p-3 mb-2 bg-green-950/30 border border-green-900 rounded text-green-300">
-                        ID: {note.id} — {note.title}
-                    </div>
-                ))
-            )}
+        {/* Tombol Action */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+          <Link 
+            href="/login"
+            className="px-8 py-3 rounded-full bg-white text-black font-bold hover:bg-gray-200 transition"
+          >
+            Masuk Dashboard
+          </Link>
+          
+          <Link 
+            href="/register"
+            className="px-8 py-3 rounded-full border border-zinc-700 hover:bg-zinc-900 transition"
+          >
+            Daftar Gratis
+          </Link>
         </div>
-
       </div>
-    </div>
+
+      {/* Footer simple */}
+      <div className="absolute bottom-8 text-zinc-600 text-sm">
+        &copy; 2025 Undangan Digital SaaS. All rights reserved.
+      </div>
+    </main>
   )
 }
