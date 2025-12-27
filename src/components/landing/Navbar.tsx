@@ -1,7 +1,7 @@
 'use client'
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Menu, X } from "lucide-react"
+import { Button } from "@/components/ui/button" // Pake tombol Shadcn
+import { Menu, X } from "lucide-react" // Icon Menu & Close
 import { useState } from "react"
 
 export default function Navbar() {
@@ -12,7 +12,7 @@ export default function Navbar() {
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex h-20 items-center justify-between">
           
-          {/* LOGO */}
+          {/* 1. LOGO BRAND */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-navy to-navy-dark text-gold font-bold text-lg shadow-md group-hover:scale-105 transition-transform">
               MK
@@ -22,7 +22,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* MENU DESKTOP */}
+          {/* 2. MENU DESKTOP (Hidden di HP) */}
           <div className="hidden md:flex items-center gap-8 font-medium text-slate-600">
             <Link href="#" className="hover:text-gold transition-colors">Beranda</Link>
             <Link href="#" className="hover:text-gold transition-colors">Template</Link>
@@ -30,7 +30,7 @@ export default function Navbar() {
             <Link href="#" className="hover:text-gold transition-colors">Harga</Link>
           </div>
 
-          {/* TOMBOL ACTION */}
+          {/* 3. TOMBOL ACTION (Login/Register) */}
           <div className="hidden md:flex items-center gap-4">
             <Link href="/login">
                <Button variant="ghost" className="text-navy hover:text-gold hover:bg-cream font-semibold">
@@ -44,7 +44,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* TOMBOL MOBILE */}
+          {/* 4. TOMBOL MENU MOBILE (Hamburger) */}
           <button 
             className="md:hidden p-2 text-navy hover:bg-cream rounded-md transition"
             onClick={() => setIsOpen(!isOpen)}
@@ -54,7 +54,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* DROPDOWN MOBILE */}
+      {/* 5. DROPDOWN MENU MOBILE */}
       {isOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 absolute w-full left-0 shadow-lg animate-in slide-in-from-top-5">
            <div className="flex flex-col p-6 space-y-4 font-medium text-slate-600">
